@@ -1,0 +1,19 @@
+version: "3.3"
+
+services:
+    my-shopping-app:
+        build: ./
+        ports:
+            - "8000:8000"
+        volumes:
+            - "./:/app"
+
+    mysql-database:
+        image: mysql:5.7.25
+        environment:
+            MYSQL_ROOT_PASSWORD: 'sdaDocker'
+            MYSQL_DATABASE: 'shopping'
+            MYSQL_USER: 'sda'
+            MYSQL_PASSWORD: 'MyNewPass'
+        volumes:
+            - ./database/:/var/lib/mysql
