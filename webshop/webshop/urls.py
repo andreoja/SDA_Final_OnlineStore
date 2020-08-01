@@ -21,6 +21,7 @@ from pages.views import ProductViewSet
 router = routers.DefaultRouter()
 router.register(r'pages', ProductViewSet)
 
+
 urlpatterns = [
     path('store-api/', include(router.urls)),
     path('admin/', admin.site.urls),

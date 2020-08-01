@@ -6,6 +6,7 @@ class Dimension(models.Model):
     h = models.FloatField(default=0.0)
     w = models.FloatField(default=0.0)
 
+
     def __str__(self):
         return 'L=' + str(self.l) + ',' + 'H=' + str(self.h) + ',' + 'W=' + str(self.w)
 
@@ -29,10 +30,10 @@ class Product(models.Model):
     location_address = models.CharField(max_length=8)
     price = models.DecimalField(
         max_digits=8, decimal_places=2, null=True, blank=True)
-    dimensions = models.ForeignKey(
-        Dimension, on_delete=models.DO_NOTHING, null=True, blank=True)
-    weight = models.ForeignKey(
-        Weight, on_delete=models.DO_NOTHING, null=True, blank=True)
+
+    dimensions = models.CharField(max_length=30, null=True, blank=True)
+    weight = models.DecimalField(
+        max_digits=9, decimal_places=3, null=True, blank=True)
 
     def __str__(self):
         return self.name

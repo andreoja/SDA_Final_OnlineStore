@@ -1,7 +1,7 @@
 from django.http import HttpResponse
 from django.shortcuts import render
 from django.views.generic import TemplateView, ListView, CreateView, UpdateView, DeleteView, DetailView, FormView
-from pages.models import Product, Dimension, Weight
+from pages.models import Product
 from django.urls import reverse_lazy
 import random
 from django.contrib.auth.decorators import login_required
