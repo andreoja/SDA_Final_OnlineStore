@@ -2,6 +2,7 @@ from django.http import HttpResponse
 from django.shortcuts import render
 from django.views.generic import TemplateView, ListView, CreateView, UpdateView, DeleteView, DetailView, FormView
 from pages.models import Product
+from pages.forms import ContactForm
 from django.urls import reverse_lazy
 import random
 from django.contrib.auth.decorators import login_required
@@ -13,6 +14,11 @@ class ProductListView(ListView):
     model = Product
     template_name = 'list.html'
     context_object_name = 'products'
+
+class ContactView(FormView):
+    template_name = 'contact.html'
+    form_class = ContactForm
+    success_url = reverse_lazy('home')
 
 class CreateProductView(LoginRequiredMixin, CreateView):
     model = Product
