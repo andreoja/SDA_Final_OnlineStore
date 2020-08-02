@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+
+{% block page_title %}
+Contact page
+{% endblock %}
+
+
+{% block content %}
+
+Enter your question below:
+
+<form action="" method="post"> 
+    {% csrf_token %}
+    {{ form.as_p }}
+<input type="submit" value="Send message" /> </form>
+
+{% endblock %}

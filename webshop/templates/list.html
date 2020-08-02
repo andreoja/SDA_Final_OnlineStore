@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+
+{% block page_title %}
+List page
+{% endblock %}
+
+
+{% block content %}
+
+<table class="table">
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Price</th>
+        <th>Quantity</th>
+    </tr>
+
+    {% for product in products %}
+    <tr>
+        <td><a href="{% url 'detail' product.id %}">{{product.id}}</a></td> 
+        <td>{{ product.name }}</td>
+        <td>{{ product.price | default_if_none:"--"}}</td>
+        <td>{{ product.quantity }}</td>
+    </tr>
+    {% endfor %}
+</table>
+
+<hr>
+
+<a href="{% url 'create'%}"> Create a new product</a>
+
+{% endblock %}
+    
