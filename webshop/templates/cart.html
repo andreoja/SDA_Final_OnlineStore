@@ -2,7 +2,7 @@
 
 
 {% block page_title %}
-List page
+Shopping cart
 {% endblock %}
 
 
@@ -13,22 +13,19 @@ List page
         <th>Part number</th>
         <th>Name</th>
         <th>Price</th>
-        <th>In stock</th>
+        <th>Quantity</th>
     </tr>
 
     {% for product in products %}
     <tr>
-        <td><a href="{% url 'detail' product.id %}">{{product.part_number}}</a></td>
+        <td>{{ product.part_number }}</td>
         <td>{{ product.product_name_EE }}</td>
-        <td>{{ product.price | default_if_none:"--"}} €</td>
+        <td>{{ product.price }} €</td>
         <td>{{ product.quantity }}</td>
     </tr>
     {% endfor %}
 </table>
 
-<hr>
 
-<a href="{% url 'create'%}"> Add a new product</a>
 
 {% endblock %}
-    

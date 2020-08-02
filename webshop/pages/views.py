@@ -15,6 +15,11 @@ class ProductListView(ListView):
     template_name = 'list.html'
     context_object_name = 'products'
 
+class CartListView(ListView):
+    model = Product
+    template_name = 'cart.html'
+    context_object_name = 'products'
+
 class ContactView(FormView):
     template_name = 'contact.html'
     form_class = ContactForm

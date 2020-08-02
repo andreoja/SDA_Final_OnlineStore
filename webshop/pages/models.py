@@ -1,6 +1,17 @@
 from django.db import models
 
 
+class Category(models.Model):
+    class Meta:
+        verbose_name_plural = "categories"
+
+    name = models.CharField(max_length=20)
+    perishable = models.BooleanField(default=False)
+
+    def __str__(self):
+        return self.name + ' - prerishable:' + str(self.perishable)
+
+
 class Product(models.Model):
     part_number = models.CharField(max_length=15)
     car_brand = models.CharField(max_length=30)

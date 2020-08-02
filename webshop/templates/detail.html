@@ -2,16 +2,18 @@
 
 
 {% block page_title %}
-Detail page
+Product page
 {% endblock %}
 
 
 {% block content %}
 
-<p> Name: {{product.name}}  </p>
-<p> {{product.price}} </p>
-<p> Info: {{product.info}} </p>
-<p> {{product.spec}} </p>
+<p> Part Number: {{product.part_number}} </p>
+<p> Name_EE: {{product.product_name_EE}}  </p>
+<p> Price: {{product.price}} € </p>
+<p> Info: {{product.product_info}} </p>
+<p> Weight: {{product.weight}} </p>
+<p><a href="{% url 'cart' product.id %}">ADD</a></p>
 
 <hr>
 <a href="{% url 'update' product.id %}">UPDATE</a>
@@ -20,9 +22,5 @@ Detail page
 <a href="{% url 'delete' product.id %}">DELETE</a>
 {% endif %}
 
-
-{% if perms.products.can_put_on_sale %}
-<p>PUT PRODUCT ON SALE</p>
-{% endif %}
 
 {% endblock %}
