@@ -10,13 +10,7 @@ Product page
 
 {% if product.picture %}
 <p> <img src="{{ product.picture.url }}" height="200px", widith="200px"> </p>
-{% endif %}
-
-{% if product.picture %}
 <p> <img src="{{ product.front_img.url }}" height="200px", widith="200px"> </p>
-{% endif %}
-
-{% if product.picture %}
 <p> <img src="{{ product.back_img.url }}" height="200px", widith="200px"> </p>
 {% endif %}
 
@@ -35,5 +29,6 @@ Product page
 <a href="{% url 'delete' product.id %}">DELETE</a>
 {% endif %}
 
+<a href="{% url 'list'%}"> Back to start</a>
 
 {% endblock %}
