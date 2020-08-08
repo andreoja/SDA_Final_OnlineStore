@@ -29,7 +29,8 @@ urlpatterns = [
     path('store-api/', include(router.urls)),
     path('admin/', admin.site.urls),
     path('pages/', include('pages.urls')),
-    path('accounts/', include('django.contrib.auth.urls'))
+    path('accounts/', include('django.contrib.auth.urls')),
+
 ]
 
 if settings.DEBUG:

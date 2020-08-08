@@ -11,6 +11,7 @@ from rest_framework import viewsets
 from pages.serializers import ProductSerializer
 
 
+
 class ProductListView(ListView):
     model = Product
     template_name = 'list.html'
