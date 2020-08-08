@@ -5,9 +5,19 @@
 List page
 {% endblock %}
 
-
-
 {% block content %}
+
+<form class="search" method="get">
+    {% if filter %}
+    <input type="text" name="filter" name={{"filter"}}>
+    {% else %}
+    <input type="text" placeholder="Search product..." name="filter">
+    {% endif %}
+
+    <button type="submit"><i class="fa fa-search"></i></button>
+</form>
+
+
 
 <table class="table">
     <tr>

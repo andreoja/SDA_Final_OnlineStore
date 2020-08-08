@@ -18,12 +18,27 @@ class ProductListView(ListView):
     context_object_name = 'products'
 
     def get_queryset(self):
+        filter_val = self.request.GET.get('filter', None)
         order = self.request.GET.get('orderby', 'part_number')
+
         new_queryset = Product.objects.order_by(order)
+
+        if filter_val:
+            new_queryset = new_queryset.filter(part_number__icontains=filter_val)
 
         return new_queryset
 
-class CartListView(ListView):
+    def get_context_data(self, **kwargs):
+        context = super(ProductListView, self).get_context_data(**kwargs)
+
+        context['orderby'] = self.request.GET.get('orderby', 'id')
+
+        context['filter'] = self.request.GET.get(
+            'filter',None)
+
+        return context
+
+class CartListView(LoginRequiredMixin, ListView):
     model = Product
     template_name = 'cart.html'
     context_object_name = 'products'
@@ -39,7 +54,7 @@ class CreateProductView(LoginRequiredMixin, CreateView):
     fields = '__all__'
     success_url = reverse_lazy('list')
 
-class DetailProductView(DetailView):
+class DetailProductView(LoginRequiredMixin, DetailView):
     model = Product
     template_name = 'detail.html'
     context_object_name = 'product'
