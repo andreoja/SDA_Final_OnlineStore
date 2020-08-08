@@ -1,4 +1,6 @@
 from django.urls import path
+from django.conf.urls import url
+from django.contrib import admin
 from pages.views import ProductListView, CreateProductView, UpdateProductView
 from pages.views import DeleteProductView, DetailProductView, ContactView, CartListView
 

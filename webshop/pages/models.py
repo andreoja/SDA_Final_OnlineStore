@@ -40,6 +40,9 @@ class Product(models.Model):
     dimensions = models.CharField(max_length=30, null=True, blank=True)
     weight = models.DecimalField(
         max_digits=9, decimal_places=3, null=True, blank=True)
+    picture = models.ImageField(upload_to='images/', null=True, blank=True)
+    front_img = models.ImageField(upload_to='images/', null=True, blank=True)
+    back_img = models.ImageField(upload_to='images/', null=True, blank=True)
 
     def __str__(self):
-        return self.name
+        return self.part_number

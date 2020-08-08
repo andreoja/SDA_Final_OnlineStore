@@ -10,10 +10,17 @@ from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMix
 from rest_framework import viewsets
 from pages.serializers import ProductSerializer
 
+
 class ProductListView(ListView):
     model = Product
     template_name = 'list.html'
     context_object_name = 'products'
+
+    def get_queryset(self):
+        order = self.request.GET.get('orderby', 'part_number')
+        new_queryset = Product.objects.order_by(order)
+
+        return new_queryset
 
 class CartListView(ListView):
     model = Product

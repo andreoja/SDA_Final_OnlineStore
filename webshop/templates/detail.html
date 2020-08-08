@@ -8,6 +8,19 @@ Product page
 
 {% block content %}
 
+{% if product.picture %}
+<p> <img src="{{ product.picture.url }}" height="200px", widith="200px"> </p>
+{% endif %}
+
+{% if product.picture %}
+<p> <img src="{{ product.front_img.url }}" height="200px", widith="200px"> </p>
+{% endif %}
+
+{% if product.picture %}
+<p> <img src="{{ product.back_img.url }}" height="200px", widith="200px"> </p>
+{% endif %}
+
+
 <p> Part Number: {{product.part_number}} </p>
 <p> Name_EE: {{product.product_name_EE}}  </p>
 <p> Price: {{product.price}} € </p>
