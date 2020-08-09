@@ -42,6 +42,11 @@ INSTALLED_APPS = [
 
 ]
 
+# Add below line to settings context_processor::
+#     'cart.context_processor.cart_total_amount'
+
+CART_SESSION_ID = 'cart'
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',

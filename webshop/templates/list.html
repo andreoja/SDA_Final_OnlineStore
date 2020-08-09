@@ -25,6 +25,7 @@ List page
         <th>Name</th>
         <th>Price</th>
         <th>In stock</th>
+        <th>Add to CART</th>
     </tr>
 
     {% for product in products %}
@@ -33,6 +34,7 @@ List page
         <td>{{ product.product_name_EE }}</td>
         <td>{{ product.price | default_if_none:"--"}} €</td>
         <td>{{ product.quantity }}</td>
+        <td><a href="{% url 'cart_add' product.id %}">Add To Cart</a></td>
     </tr>
     {% endfor %}
 </table>

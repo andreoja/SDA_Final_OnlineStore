@@ -1,5 +1,5 @@
 from django.http import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views.generic import TemplateView, ListView, CreateView, UpdateView, DeleteView, DetailView, FormView
 from pages.models import Product, Cart, CartItem
 from pages.forms import ContactForm
@@ -11,6 +11,11 @@ from rest_framework import viewsets
 from pages.serializers import ProductSerializer
 
 
+def cart_add(request, id):
+    cart = Cart(request)
+    product = Product.objects.get(id=id)
+    cart.add(product=product)
+    return redirect('cart.html')
 
 class ProductListView(ListView):
     model = Product
@@ -38,6 +43,8 @@ class ProductListView(ListView):
 
         return context
 
+
+
 class CartView(LoginRequiredMixin, ListView):
     model = CartItem
     template_name = 'cart.html'
@@ -45,8 +52,12 @@ class CartView(LoginRequiredMixin, ListView):
 
     def get_queryset(self):
         user = self.request.user
-        cart = Cart.objects.filter(user=user).filter(active=True)
-        self.cartitems = cart.cartitems.all()
+        cart = Cart.objects.filter(user=user).filter(active=True).first()
+
+        if cart == None:
+            self.cartitems = []
+        else:
+            self.cartitems = cart.cartitems.all()
 
         return self.cartitems
 
@@ -54,6 +65,9 @@ class CartView(LoginRequiredMixin, ListView):
         context = super(CartView, self).get_context_data(**kwargs)
 
         total = 0
+
+        if len(self.cartitems) == 0:
+            context['no_products'] = True
 
         for ci in self.cartitems:
             total += ci.quantity * ci.product.price

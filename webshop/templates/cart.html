@@ -13,13 +13,15 @@ Shopping cart
         <th>Part number</th>
         <th>Name</th>
         <th>Price</th>
+        <th>Remove item</th>
     </tr>
 
-    {% for product in products %}
+    {% for cartitem in cartitems %}
     <tr>
         <td>{{ product.part_number }}</td>
         <td>{{ product.product_name_EE }}</td>
         <td>{{ product.price }} €</td>
+        <td>.....</td>
     </tr>
     {% endfor %}
 </table>
