@@ -1,7 +1,7 @@
 from django.http import HttpResponse
 from django.shortcuts import render
 from django.views.generic import TemplateView, ListView, CreateView, UpdateView, DeleteView, DetailView, FormView
-from pages.models import Product
+from pages.models import Product, Cart, CartItem
 from pages.forms import ContactForm
 from django.urls import reverse_lazy
 import random
@@ -38,10 +38,29 @@ class ProductListView(ListView):
 
         return context
 
-class CartListView(LoginRequiredMixin, ListView):
-    model = Product
+class CartView(LoginRequiredMixin, ListView):
+    model = CartItem
     template_name = 'cart.html'
-    context_object_name = 'products'
+    context_object_name = 'cartitems'
+
+    def get_queryset(self):
+        user = self.request.user
+        cart = Cart.objects.filter(user=user).filter(active=True)
+        self.cartitems = cart.cartitems.all()
+
+        return self.cartitems
+
+    def get_context_data(self, **kwargs):
+        context = super(CartView, self).get_context_data(**kwargs)
+
+        total = 0
+
+        for ci in self.cartitems:
+            total += ci.quantity * ci.product.price
+
+        context['total'] = total
+
+        return context
 
 class ContactView(FormView):
     template_name = 'contact.html'

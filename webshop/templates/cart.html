@@ -13,7 +13,6 @@ Shopping cart
         <th>Part number</th>
         <th>Name</th>
         <th>Price</th>
-        <th>Quantity</th>
     </tr>
 
     {% for product in products %}
@@ -21,7 +20,6 @@ Shopping cart
         <td>{{ product.part_number }}</td>
         <td>{{ product.product_name_EE }}</td>
         <td>{{ product.price }} €</td>
-        <td>{{ product.quantity }}</td>
     </tr>
     {% endfor %}
 </table>

@@ -1,4 +1,6 @@
 from django.db import models
+from django.contrib.auth.models import AbstractUser
+from django.core.validators import MaxLengthValidator, MinLengthValidator
 
 
 class CategoryPart(models.Model):
@@ -45,4 +47,25 @@ class Product(models.Model):
     back_img = models.ImageField(upload_to='images/', null=True, blank=True)
 
     def __str__(self):
-        return self.part_number
+        return self.part_number + '-' + self.product_name_EE
+
+class StoreUser(AbstractUser):
+
+    COMMUNICATION_CHOISES = [('email', 'Email'), ('phone', 'Call'),]
+
+    company_name = models.CharField(max_length=35, null=True, blank=False)
+    registration_number = models.CharField(max_length=8, null=True, blank=False)
+    VAT_number = models.CharField(max_length=11, null=True, blank=False)
+    address = models.CharField(max_length=50, null=True, blank=False)
+    email = models.CharField(max_length=50, null=True, blank=False)
+    phone_number = models.CharField(max_length=15, null=True, blank=False)
+    preffered_communication = models.CharField(max_length=50, null=True, blank=True, choices=COMMUNICATION_CHOISES)
+
+class CartItem(models.Model):
+    product = models.ForeignKey(Product, on_delete=models.DO_NOTHING)
+    quantity = models.PositiveIntegerField(default=1)
+
+class Cart(models.Model):
+    user = models.ForeignKey(StoreUser, on_delete=models.DO_NOTHING)
+    active = models.BooleanField(default=True)
+    cartitems = models.ManyToManyField(CartItem)
