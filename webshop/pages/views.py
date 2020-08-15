@@ -79,7 +79,7 @@ class CartView(LoginRequiredMixin, ListView):
 class ContactView(FormView):
     template_name = 'contact.html'
     form_class = ContactForm
-    success_url = reverse_lazy('home')
+    success_url = reverse_lazy('list')
 
 class CreateProductView(LoginRequiredMixin, CreateView):
     model = Product
