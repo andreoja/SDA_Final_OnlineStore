@@ -3,11 +3,11 @@ from . import views
 from django.conf.urls import url
 from django.contrib import admin
 from pages.views import ProductListView, CreateProductView, UpdateProductView
-from pages.views import DeleteProductView, DetailProductView, ContactView, CartView
+from pages.views import DeleteProductView, DetailProductView, ContactView, CartView, cart_add
 
 
 urlpatterns = [
-    path('cart/add/<int:id>/', views.cart_add, name='cart_add'),
+    path('cart_add/<int:product_id>/', cart_add, name='cart_add'),
     path('list/', ProductListView.as_view(), name='list'),
     path('create/', CreateProductView.as_view(), name='create'),
     path('contact/', ContactView.as_view(), name='contact'),

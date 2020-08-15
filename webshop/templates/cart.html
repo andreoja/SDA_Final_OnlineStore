@@ -13,19 +13,21 @@ Shopping cart
         <th>Part number</th>
         <th>Name</th>
         <th>Price</th>
+        <th>Quantity</th>
         <th>Remove item</th>
     </tr>
 
     {% for cartitem in cartitems %}
     <tr>
-        <td>{{ product.part_number }}</td>
-        <td>{{ product.product_name_EE }}</td>
-        <td>{{ product.price }} €</td>
+        <td>{{ cartitem.product.part_number }}</td>
+        <td>{{ cartitem.product.product_name_EE }}</td>
+        <td>{{ cartitem.product.price }} €</td>
+        <td>{{ cartitem.quantity}}</td>
         <td>.....</td>
     </tr>
     {% endfor %}
 </table>
 
-
+{{total}}
 
 {% endblock %}

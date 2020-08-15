@@ -1,5 +1,5 @@
-from django.http import HttpResponse
-from django.shortcuts import render, redirect
+from django.http import HttpResponse, HttpResponseRedirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import TemplateView, ListView, CreateView, UpdateView, DeleteView, DetailView, FormView
 from pages.models import Product, Cart, CartItem
 from pages.forms import ContactForm
@@ -11,11 +11,32 @@ from rest_framework import viewsets
 from pages.serializers import ProductSerializer
 
 
-def cart_add(request, id):
-    cart = Cart(request)
-    product = Product.objects.get(id=id)
-    cart.add(product=product)
-    return redirect('cart.html')
+def cart_add(request, product_id):
+    user = request.user
+    carts = Cart.objects.filter(user=user).filter(active=True)
+    user_cart = None
+
+    if carts.count() ==0:
+        new_cart = Cart.objects.create(user=user)
+        new_cart.save()
+        user_cart = new_cart
+
+    else:
+        user_cart = carts.first()
+
+    product = Product.objects.filter(id=product_id).first()
+    cart_items = user_cart.cartitems.filter(product=product)
+
+    if cart_items.count() == 0:
+        new_cartitem = CartItem.objects.create(product=product)
+        new_cartitem.save()
+        user_cart.cartitems.add(new_cartitem)
+    else:
+        cart_item = cart_items.first()
+        cart_item.quantity = cart_item.quantity + 1
+        cart_item.save()
+
+    return HttpResponseRedirect(reverse_lazy('cart'))
 
 class ProductListView(ListView):
     model = Product
