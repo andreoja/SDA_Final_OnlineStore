@@ -21,6 +21,7 @@ Product page
 <p> Info: {{product.product_info}} </p>
 <p> Weight: {{product.weight}} </p>
 
+<a href="{% url 'cart_add' product.id %}">Add To Cart</a>
 <hr>
 <a href="{% url 'update' product.id %}">UPDATE</a>
 

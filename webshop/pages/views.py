@@ -45,7 +45,7 @@ def purchase_view(request):
     user = request.user
     user_cart = Cart.objects.filter(user=user).filter(active=True).first()
 
-    user_products = user_cart.products.all()
+    user_products = user_cart.cartitems.all()
 
     for product in user_products:
         product.quantity = product.quantity - 1
@@ -74,7 +74,7 @@ def count_visited_view(request):
     return response
 
 
-class ProductListView(ListView):
+class ProductListView(LoginRequiredMixin, ListView):
     model = Product
     template_name = 'list.html'
     context_object_name = 'products'

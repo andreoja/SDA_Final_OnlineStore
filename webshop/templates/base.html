@@ -101,6 +101,7 @@ form.search::after {
                         <a href="{% url 'cart' %}"><i class="fa fa-shopping-cart"></i>(0)</a>
                         {% else %}
                         <li><a href="{% url 'login' %}?next={{ request.path }}">Login</a></li>
+                        <p><a href="{% url 'register_user' %}">Create User!</a></p>
                     {% endif %}
                 </ul>
 
