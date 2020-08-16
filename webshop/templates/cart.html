@@ -8,26 +8,42 @@ Shopping cart
 
 {% block content %}
 
-<table class="table">
-    <tr>
-        <th>Part number</th>
-        <th>Name</th>
-        <th>Price</th>
-        <th>Quantity</th>
-        <th>Remove item</th>
-    </tr>
 
-    {% for cartitem in cartitems %}
-    <tr>
-        <td>{{ cartitem.product.part_number }}</td>
-        <td>{{ cartitem.product.product_name_EE }}</td>
-        <td>{{ cartitem.product.price }} €</td>
-        <td>{{ cartitem.quantity}}</td>
-        <td>.....</td>
-    </tr>
-    {% endfor %}
-</table>
+{% if no_products %}
+    Your cart is empty
 
-<h2>The total amount in cart {{total}} €
+{% else %}
+
+    <table class="table">
+        <tr>
+            <th>Part number</th>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Quantity</th>
+            <th>Remove item</th>
+        </tr>
+
+        {% for cartitem in cartitems %}
+        <tr>
+            <td>{{ cartitem.product.part_number }}</td>
+            <td>{{ cartitem.product.product_name_EE }}</td>
+            <td>{{ cartitem.product.price }} €</td>
+            <td>{{ cartitem.quantity}}</td>
+            <td>.....</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <h2>The total amount in cart {{total}} €
+
+    <br>
+    <a class="btn btn-success" href="{% url 'purchase' %}">
+        <i class="fa fa-money"></i> BUY </a>
+    <br>
+
+    <a href="{% url 'list' %}">Continue shopping</a>
+
+{% endif %}
+
 
 {% endblock %}

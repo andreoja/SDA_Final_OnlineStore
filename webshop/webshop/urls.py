@@ -19,7 +19,7 @@ from django.conf import settings
 from django.contrib import admin
 from django.urls import path, include
 from rest_framework import routers
-from pages.views import ProductViewSet
+from pages.views import ProductViewSet, register_user, cart_add
 
 router = routers.DefaultRouter()
 router.register(r'pages', ProductViewSet)
@@ -30,7 +30,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('pages/', include('pages.urls')),
     path('accounts/', include('django.contrib.auth.urls')),
-
+    path('register_user/', register_user)
 ]
 
 if settings.DEBUG:

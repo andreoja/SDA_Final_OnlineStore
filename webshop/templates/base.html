@@ -40,6 +40,51 @@
             }
         }
     </style>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <style>
+        * {
+  box-sizing: border-box;
+}
+
+/* Style the search field */
+form.search input[type=text] {
+  padding: 10px;
+  font-size: 17px;
+  border: 1px solid grey;
+  float: left;
+  width: 80%;
+  background: #f1f1f1;
+}
+
+/* Style the submit button */
+form.search button {
+  float: left;
+  width: 20%;
+  padding: 10px;
+  background: #2196F3;
+  color: white;
+  font-size: 17px;
+  border: 1px solid grey;
+  border-left: none; /* Prevent double borders */
+  cursor: pointer;
+}
+
+form.search button:hover {
+  background: #0b7dda;
+}
+
+/* Clear floats */
+form.search::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+</style>
+
+</head>
+
 </head>
 
 <body>
@@ -52,7 +97,8 @@
                 <ul class="sidebar-nav">
                     {% if user.is_authenticated %}
                         <li>User: {{ user.get_username }}</li>
-                        <li><a href="{% url 'logout' %}?next={{ request.path }}">Logout</a></li> 
+                        <li><a href="{% url 'logout' %}?next={{ request.path }}">Logout</a></li>
+                        <a href="{% url 'cart' %}"><i class="fa fa-shopping-cart"></i>(0)</a>
                         {% else %}
                         <li><a href="{% url 'login' %}?next={{ request.path }}">Login</a></li>
                     {% endif %}

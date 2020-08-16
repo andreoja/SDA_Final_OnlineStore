@@ -53,12 +53,12 @@ class StoreUser(AbstractUser):
 
     COMMUNICATION_CHOISES = [('email', 'Email'), ('phone', 'Call'),]
 
-    company_name = models.CharField(max_length=35, null=True, blank=False)
-    registration_number = models.CharField(max_length=8, null=True, blank=False)
+    company_name = models.CharField(max_length=35, null=False, blank=False)
+    registration_number = models.CharField(max_length=8, null=False, blank=False)
     VAT_number = models.CharField(max_length=11, null=True, blank=False)
-    address = models.CharField(max_length=50, null=True, blank=False)
-    email = models.CharField(max_length=50, null=True, blank=False)
-    phone_number = models.CharField(max_length=15, null=True, blank=False)
+    address = models.CharField(max_length=50, null=False, blank=False)
+    email = models.CharField(max_length=50, null=False, blank=False)
+    phone_number = models.CharField(max_length=15, null=False, blank=False)
     preffered_communication = models.CharField(max_length=50, null=True, blank=True, choices=COMMUNICATION_CHOISES)
 
 class CartItem(models.Model):
