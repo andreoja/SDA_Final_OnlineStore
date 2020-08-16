@@ -1,7 +1,7 @@
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import TemplateView, ListView, CreateView, UpdateView, DeleteView, DetailView, FormView
-from pages.models import Product, Cart, CartItem
+from pages.models import Product, Cart, CartItem, StoreUser
 from pages.forms import ContactForm, UserRegistrationForm
 from django.urls import reverse_lazy
 import random
@@ -10,6 +10,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMix
 from rest_framework import viewsets
 from pages.serializers import ProductSerializer
 from django.contrib.auth.forms import UserCreationForm
+from django.core.mail import send_mail
 
 
 def cart_add(request, product_id):
@@ -133,10 +134,25 @@ class CartView(LoginRequiredMixin, ListView):
 
         return context
 
-class ContactView(FormView):
-    template_name = 'contact.html'
-    form_class = ContactForm
-    success_url = reverse_lazy('list')
+
+def contactView(request):
+    if request.method == 'GET':
+        form = ContactForm()
+    else:
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            name = form.cleaned_data['name']
+            email = form.cleaned_data['email']
+            message = form.cleaned_data['message']
+            try:
+                send_mail(name, email, message, ['info@subaremont.eu'])
+            except Exception:
+                return HttpResponse('Invalid email')
+            return redirect('success')
+    return render(request, "contact.html", {'form': form})
+
+def successView(request):
+    return HttpResponse('Success! Thank you for your message.')
 
 class CreateProductView(LoginRequiredMixin, CreateView):
     model = Product

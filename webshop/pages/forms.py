@@ -3,9 +3,9 @@ from django.contrib.auth.forms import UserCreationForm
 from pages.models import StoreUser
 
 class ContactForm(forms.Form):
-    name = forms.CharField(required=False)
-    email = forms.CharField(widget=forms.EmailInput)
-    message = forms.CharField(widget=forms.Textarea)
+    name = forms.CharField(required=True)
+    email = forms.EmailField(required=True)
+    message = forms.CharField(widget=forms.Textarea, required=True)
 
 
 class UserRegistrationForm(forms.Form):
@@ -31,7 +31,7 @@ class UserRegistrationForm(forms.Form):
         username = cleaned_data.get('username')
         existing_user = StoreUser.objects.filter(username=username)
 
-        if existing_user is not None:
+        if existing_user.count() != 0:
             raise forms.ValidationError(
                 "This username is already taken. Choose another one"
             )

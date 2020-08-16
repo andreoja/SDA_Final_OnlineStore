@@ -138,6 +138,7 @@ STATICFILES_DIRS = [
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
 LOGIN_REDIRECT_URL = '/pages/list'
+DEFAULT_FROM_EMAIL = 'info@subaremont.eu'
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 AUTH_USER_MODEL = "pages.StoreUser"
